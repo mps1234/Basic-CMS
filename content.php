@@ -7,18 +7,18 @@
 					<ul class="subjects">
 				<?php
 
-				//Perform DB query
-				$result = mysqli_query($connection,"SELECT * FROM subjects");
+				$subject_set = get_all_subjects();
 
 				//Use Returned Data
-				while($row = mysqli_fetch_array($result))
+				while($subject = mysqli_fetch_array($subject_set))
 					{
-						echo "<li>{$row['menu_name']}</li>";
-						$result = mysqli_query($connection,"SELECT * FROM pages");
+						echo "<li>{$subject['menu_name']}</li>";
+
+						$page_set = get_pages_for_subject($subject["id"]);
 						echo "<ul class=\"pages\">";
-						while($row = mysqli_fetch_array($result))
+						while($page = mysqli_fetch_array($page_set))
 							{
-						echo "<li>{$row['menu_name']}</li>";
+						echo "<li>{$page['menu_name']}</li>";
 							}
 						echo "</ul>";
 					}
